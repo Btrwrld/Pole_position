@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player extends GameObject {
 
-    private Integer player;
-    private Float speed;
-    public Long turnTimer = 0l;
+    private Float speed = 0.3f;
+    private Integer lives = 3;
+    private Integer points = 0;
 
     public Player(Integer player) {
         //Heredados
@@ -18,7 +18,6 @@ public class Player extends GameObject {
         this.position = new Vector2();
 
         //Propios
-        this.speed = 0.3f;
         this.player = player;
 
         this.resetSprite();
@@ -37,10 +36,10 @@ public class Player extends GameObject {
             this.turn(dir);
             this.position.x = (x - this.speed);
         }
-        else if(dir == 3){// Accelera
+        else if(dir == 3){// Frena
             this.position.y = (y + this.speed);
         }
-        else if(dir == 4){// Frena
+        else if(dir == 4){// Accelera
             this.position.y = (y - this.speed);
         }
     }
@@ -106,4 +105,34 @@ public class Player extends GameObject {
 
         }
     }
+
+    public void first(){
+        this.points += 2000;
+    }
+    public void second(){
+        this.points += 1000;
+    }
+    public void third(){
+        this.points += 250;
+    }
+    public void carDown(){
+        this.points += 100;
+    }
+    public void lifeBonus(){
+        this.points += 3;
+    }
+    public void turboBonus(){
+        this.points += 2;
+    }
+    public void timeBonus(){
+        this.points += 1;
+    }
+
+    public void hit(){
+        this.lives -= 1;
+    }
+    public void lifeUp(){
+        this.lives += 1;
+    }
+
 }

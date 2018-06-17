@@ -9,14 +9,17 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.tecidc.controller.Controller;
 import com.tecidc.entities.Player;
+import com.tecidc.entities.Shell;
 
 
 public class ViewGame implements ApplicationListener {
 
-    OrthographicCamera camera;
-    Player player;
-    SpriteBatch batch;
-    View view;
+    private OrthographicCamera camera;
+    private Player player;
+    private Shell shell;
+    private SpriteBatch batch;
+    private View view;
+    private Controller controller = new Controller();
 
     @Override
     public void create() {
@@ -26,7 +29,7 @@ public class ViewGame implements ApplicationListener {
 
         batch = new SpriteBatch();
 
-        Pixmap trackSprite = new Pixmap(Gdx.files.internal("track1.png"));
+        Pixmap trackSprite = new Pixmap(Gdx.files.internal("tracks/track.png"));
 
         view = new View(256, 256, Pixmap.Format.RGB565);
         view.camera.set(431, 345 + 16, 16);
@@ -36,7 +39,7 @@ public class ViewGame implements ApplicationListener {
 
         player = new Player(1);
         player.position.set(431, 345);
-        view.sprites.add(player);
+        view.players.add(player);
     }
 
     @Override
@@ -44,13 +47,10 @@ public class ViewGame implements ApplicationListener {
         batch.dispose();
     }
 
-    private void input() {
-        Controller.movePlayer(player, view);
-    }
-
     @Override
     public void render() {
-        input();
+        controller.movePlayer(player, view);
+        controller.shot(view.shells, player);
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

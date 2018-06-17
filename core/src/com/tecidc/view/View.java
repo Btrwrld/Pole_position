@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.tecidc.entities.*;
+import com.tecidc.entities.GameObject;
+import com.tecidc.entities.Player;
+import com.tecidc.entities.Shell;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +24,8 @@ public class View extends Pixmap {
 	public Vector3 camera;
 	public Vector2 scale;
 	public Vector2 objScale;
-	public List<GameObject> sprites;
+	public List<Player> players;
+    public List<Shell> shells;
 
 	public View(int width, int height, Format format) {
 		super(width, height, format);
@@ -32,34 +35,35 @@ public class View extends Pixmap {
 		camera = new Vector3(0, 0, 1);
 		scale = new Vector2(100, 100);
 		objScale = new Vector2(0.1f, 0.1f);
-		sprites = new ArrayList<GameObject>();
+		players = new ArrayList<Player>();
+        shells = new ArrayList<Shell>();
 	}
 
 	public void render(SpriteBatch batch) {
 		setColor(Color.rgb565(135, 206, 235));
 		fill();
 
-		int width = getWidth();
-		int height = getHeight();
+		Integer width = getWidth();
+		Integer height = getHeight();
 
-		double sin = Math.sin(angle);
-		double cos = Math.cos(angle);
+		Double sin = Math.sin(angle);
+		Double cos = Math.cos(angle);
 
 		if (floor != null) {
 			for (int y = (int) horizon.floatValue(); y < height; y++) {
-				float distance = (camera.z * scale.y) / (y - horizon);
-				float ratio = distance / scale.x;
+				Float distance = (camera.z * scale.y) / (y - horizon);
+				Float ratio = distance / scale.x;
 
-				double dx = -sin * ratio;
-				double dy = cos * ratio;
+				Double dx = -sin * ratio;
+				Double dy = cos * ratio;
 
-				double sx = camera.x + distance * cos - width / 2 * dx;
-				double sy = camera.y + distance * sin - width / 2 * dy;
+				Double sx = camera.x + distance * cos - width / 2 * dx;
+				Double sy = camera.y + distance * sin - width / 2 * dy;
 
 				for (int x = 0; x < width; x++) {
-					int cx = (int) Math.abs(sx % floor.getWidth());
-					int cy = (int) Math.abs(sy % floor.getHeight());
-					int color = floor.getPixel(cx, cy);
+					Integer cx = (int) Math.abs(sx % floor.getWidth());
+					Integer cy = (int) Math.abs(sy % floor.getHeight());
+					Integer color = floor.getPixel(cx, cy);
 
 					setColor(color);
 					drawPixel(x, y);
@@ -71,36 +75,12 @@ public class View extends Pixmap {
 		}
 
 		List<GameObject> visible = new ArrayList<GameObject>();
-
-		for (GameObject sprite : sprites) {
-			Float dx = sprite.position.x - camera.x;
-			Float  dy = sprite.position.y - camera.y;
-
-			Double sx = dx * cos + dy * sin;
-			Double sy = dy * cos - dx * sin;
-
-			Integer sw = sprite.getPixmap().getWidth();
-			Integer sh = sprite.getPixmap().getHeight();
-			Integer w = (int) (sw * scale.x / sx * objScale.x);
-			Integer h = (int) (sh * scale.y / sx * objScale.y);
-
-			// Negative height, sprite is behind camera
-			if (h < 1) {
-				continue;
-			}
-
-			Integer x = (int) (scale.x / sx * sy) + width / 2;
-			Integer y = (int) ((camera.z * scale.y) / sx + horizon);
-
-			// Align sprite center-bottom
-			sprite.screen.x = x - w / 2;
-			sprite.screen.y = y - h;
-			sprite.size.x = w;
-			sprite.size.y = h;
-			sprite.sort = y;
-
-			visible.add(sprite);
-		}
+        for (GameObject player : players){
+            this.visibleObject(player, visible);
+        }
+        for (GameObject shell : shells){
+            this.visibleObject(shell, visible);
+        }
 
 		Collections.sort(visible);
 
@@ -119,4 +99,41 @@ public class View extends Pixmap {
 
 		batch.draw(texture, 0, 0);
 	}
+
+
+
+	public void visibleObject(GameObject object,  List<GameObject> visible){
+
+        Integer width = getWidth();
+
+        Double sin = Math.sin(angle);
+        Double cos = Math.cos(angle);
+
+        Float dx = object.position.x - camera.x;
+        Float  dy = object.position.y - camera.y;
+
+        Double sx = dx * cos + dy * sin;
+        Double sy = dy * cos - dx * sin;
+
+        Integer sw = object.getPixmap().getWidth();
+        Integer sh = object.getPixmap().getHeight();
+        Integer w = (int) (sw * scale.x / sx * objScale.x);
+        Integer h = (int) (sh * scale.y / sx * objScale.y);
+
+        // Negative height, sprite is behind camera
+        if (h >= 1) {
+            Integer x = (int) (scale.x / sx * sy) + width / 2;
+            Integer y = (int) ((camera.z * scale.y) / sx + horizon);
+
+            // Align sprite center-bottom
+            object.screen.x = x - w / 2;
+            object.screen.y = y - h;
+            object.size.x = w;
+            object.size.y = h;
+            object.sort = y;
+
+            visible.add(object);
+        }
+
+    }
 }
