@@ -9,11 +9,25 @@ import com.tecidc.view.View;
 
 import java.util.List;
 
+
+/**
+ * Controller: Clase encargada de la interación con el usuario y encargada de modificar el modelo
+ *
+ *  private long turnTimer = 0l: Encargada de ver hace cuanto fue la ultima vez que se hizo una vuelta. Utilizada para controlar el sprite de doblar
+ *  private long shotTimer = 0l: Encargado de ver cuando fue el último disparo. Utilizado para controlar la cadencia de tiro
+ *
+ */
 public class Controller {
 
     private long turnTimer = 0l;
     private long shotTimer = 0l;
 
+    /**
+     * Encargado de validadar la interacción con el usuario y de actualzar la posición del objeto pasado
+     *
+     * @param player: Jugador a actualizar
+     * @param view: Vista en la cual se mustra el jugador
+     */
     public void movePlayer(Player player, View view){
 
         Long start = 1000000000*System.currentTimeMillis();
@@ -104,6 +118,12 @@ public class Controller {
 
     }
 
+    /**
+     * Encargada de actualizar los disparos del jugador
+     *
+     * @param shells: Lista de disparos a actualizar
+     * @param player: Jugador que las dispara
+     */
     public void shot(List<Shell> shells, Player player){
 
         for(Shell shell : shells){
@@ -112,7 +132,7 @@ public class Controller {
 
         if((Gdx.input.isKeyPressed(Input.Keys.SPACE)) && (System.currentTimeMillis() - this.shotTimer >= 500)){
 
-            Shell shell = new Shell(new Vector2(player.position.x, player.position.y - 1));
+            Shell shell = new Shell(new Vector2(player.position.x, player.position.y - 4));
             this.shotTimer = System.currentTimeMillis();
 
 

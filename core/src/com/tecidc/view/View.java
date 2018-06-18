@@ -14,6 +14,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+/**
+ * View: clase encargada de mostrar toda la información al usuario
+ *
+ * public Pixmap floor: pista de la carrera
+ * public List<Player> players: Lista de jugadores por dibujar
+ * public List<Shell> shells: Lista de disparos por dibujar
+ *
+ */
 public class View extends Pixmap {
 
 	public Pixmap floor;
@@ -39,6 +48,11 @@ public class View extends Pixmap {
         shells = new ArrayList<Shell>();
 	}
 
+    /**
+     * Función encargada de dibujar todos objetos
+     *
+     * @param batch: contexto de dibujo
+     */
 	public void render(SpriteBatch batch) {
 		setColor(Color.rgb565(135, 206, 235));
 		fill();
@@ -101,7 +115,12 @@ public class View extends Pixmap {
 	}
 
 
-
+    /**
+     * Define si un objeto es visible y si lo es lo agrega a la lista de visibles
+     *
+     * @param object: Objeto a evaluar
+     * @param visible: Lista de objetos visibles
+     */
 	public void visibleObject(GameObject object,  List<GameObject> visible){
 
         Integer width = getWidth();

@@ -6,29 +6,37 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.tecidc.Sockets.SocketCliente;
 import com.tecidc.controller.Controller;
-import com.tecidc.entities.GameObject;
 import com.tecidc.entities.Player;
 import com.tecidc.entities.Shell;
 
 import java.io.IOException;
-import java.net.Socket;
 
+
+/**
+ * ViewGame: Clase encargada de coordinar la interacción entre el usuario-controlador-servidor
+ */
 
 public class ViewGame implements ApplicationListener {
 
     private OrthographicCamera camera;
     public Player player;
-    private Shell shell;
     private SpriteBatch batch;
     private View view;
-    private Vector2 position0;
     private Controller controller = new Controller();
     private SocketCliente socket = new SocketCliente();
+    private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/main.fnt"),
+            Gdx.files.internal("fonts/main.png"), false);
 
+    /**
+     *
+     * Realiza el set up de todos los atributos necesarios para jugar
+     *
+     */
     @Override
     public void create() {
         camera = new OrthographicCamera(256, 256);
@@ -51,8 +59,6 @@ public class ViewGame implements ApplicationListener {
 
         socket.SocketCliente();
 
-
-
     }
 
     @Override
@@ -60,6 +66,12 @@ public class ViewGame implements ApplicationListener {
         batch.dispose();
     }
 
+
+    /**
+     *
+     * Ordena la interacción entre el jugador-controlador y servidor aplicando el patron del Model-View-Controller
+     *
+     */
     @Override
     public void render() {
         controller.movePlayer(player, view);
@@ -76,6 +88,8 @@ public class ViewGame implements ApplicationListener {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
+        font.draw(batch, "Hello World!", 10, 10);
         view.render(batch);
         batch.end();
     }

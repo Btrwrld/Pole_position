@@ -3,7 +3,14 @@ package com.tecidc.entities;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 
-
+/**
+ * GameObject: Clase padre de todos los actores del juego
+ *
+ *  protected Integer player: Identificador, define si es un jugador(1-4), un disparo(5), una vida(6), un turbo(7) o un trueno(8)
+ *  public Vector2 position: Define la posición en la pantalla.
+ *  protected Pixmap pixmap: almacena el sprite
+ *
+ */
 public abstract class GameObject implements Comparable<GameObject> {
 
 

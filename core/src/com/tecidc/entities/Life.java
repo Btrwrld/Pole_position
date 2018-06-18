@@ -7,6 +7,7 @@ public class Life extends GameObject {
     public Life(){
         super();
         this.pixmap = new Pixmap(Gdx.files.internal("statusModifiers/1up.png"));
+        this.player = 6;
     }
 
 }

@@ -8,6 +8,7 @@ public class Thunder extends GameObject{
     public Thunder(){
         super();
         this.pixmap = new Pixmap(Gdx.files.internal("statusModifiers/thunder.png"));
+        this.player = 8;
     }
 
 }

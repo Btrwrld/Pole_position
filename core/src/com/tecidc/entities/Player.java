@@ -5,6 +5,14 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 
 
+/**
+ * Player: Clase representante de los jugadores
+ *
+ *  private Float speed: define la velocidad de movimiento del jugador
+ *  public Integer lives: Define la cantidad de vidas que tiene el jugador
+ *   public Integer points: Define la cantidad de puntos que tiene el jugador
+ *
+ */
 public class Player extends GameObject {
 
     private Float speed = 0.3f;
@@ -23,6 +31,11 @@ public class Player extends GameObject {
         this.resetSprite();
     }
 
+    /**
+     *  Modifica la posición del jugador
+     *
+     * @param dir: Dirección del movimiento
+     */
     public void move(Integer dir){
 
         Float x = this.position.x;
@@ -43,6 +56,11 @@ public class Player extends GameObject {
             this.position.y = (y - this.speed);
         }
     }
+
+    /**
+     * Modifica el sprite del jugador en cada curva
+     * @param side: Lado al que está girando el auto
+     */
     private void turn(Integer side){
 
         if(side == 1) {
@@ -88,6 +106,10 @@ public class Player extends GameObject {
         }
     }
 
+
+    /**
+     * Pone el sprite básico para cada jugador
+     */
     public void resetSprite(){
         switch(this.player){
 
