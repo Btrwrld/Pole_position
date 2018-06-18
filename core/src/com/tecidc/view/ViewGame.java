@@ -29,8 +29,6 @@ public class ViewGame implements ApplicationListener {
     private View view;
     private Controller controller = new Controller();
     private SocketCliente socket = new SocketCliente();
-    private BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/main.fnt"),
-            Gdx.files.internal("fonts/main.png"), false);
 
     /**
      *
@@ -89,7 +87,6 @@ public class ViewGame implements ApplicationListener {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
-        font.draw(batch, "Hello World!", 10, 10);
         view.render(batch);
         batch.end();
     }
