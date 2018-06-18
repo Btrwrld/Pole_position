@@ -114,7 +114,6 @@ public class SocketCliente extends Thread {
 
         else if (data.equals("j3vida")) {
             SharedData.getInstance().mensaje = data;
-            
         }
         else if (data.equals("j4vida")) {
             SharedData.getInstance().mensaje = data;
