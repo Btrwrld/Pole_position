@@ -13,7 +13,7 @@ public class SharedData {
     private void Shared_Data (){
     }
 
-    static SharedData getInstance(){
+    public static SharedData getInstance(){
         if (instance == null){
             instance = new SharedData();
         }

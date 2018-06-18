@@ -72,16 +72,20 @@ public class SocketCliente extends Thread {
 
         if (data.equals("j1hueco")) {
             System.out.println("Se debe renderizar hueco para el jugador 1");
+            SharedData.getInstance().mensaje = data;
         }
-        if (data.equals("j2hueco")) {
+        else if (data.equals("j2hueco")) {
             System.out.println("Se debe renderizar hueco para el jugador 2");
+            SharedData.getInstance().mensaje = data;
         }
 
-        if (data.equals("j3hueco")) {
+        else if (data.equals("j3hueco")) {
             System.out.println("Se debe renderizar hueco para el jugador 3");
+            SharedData.getInstance().mensaje = data;
         }
-        if (data.equals("j4hueco")) {
+        else if (data.equals("j4hueco")) {
             System.out.println("Se debe renderizar hueco para el jugador 4");
+            SharedData.getInstance().mensaje = data;
         }
 
 

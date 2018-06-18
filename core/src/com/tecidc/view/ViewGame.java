@@ -45,6 +45,8 @@ public class ViewGame implements ApplicationListener {
 
         Pixmap trackSprite = new Pixmap(Gdx.files.internal("tracks/track.png"));
 
+
+
         view = new View(256, 256, Pixmap.Format.RGB565);
         view.camera.set(431, 345 + 16, 16);
         view.horizon = 30f;
