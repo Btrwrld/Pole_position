@@ -59,7 +59,7 @@ public class SocketCliente extends Thread {
     public void send(String mensaje) throws IOException {
         DatoSocket msj = new DatoSocket(mensaje);
         msj.writeObject(bufferSalida);
-        System.out.println("Mensaje Enviado:" + mensaje);
+        //System.out.println("Mensaje Enviado:" + mensaje);
 
     }
 
@@ -70,25 +70,57 @@ public class SocketCliente extends Thread {
         String[] parts = data_server.split("-- ");
         String data = parts[1];
 
+        // BRAIN PARA LOS HUECOS
+
         if (data.equals("j1hueco")) {
-            System.out.println("Se debe renderizar hueco para el jugador 1");
             SharedData.getInstance().mensaje = data;
         }
         else if (data.equals("j2hueco")) {
-            System.out.println("Se debe renderizar hueco para el jugador 2");
             SharedData.getInstance().mensaje = data;
         }
 
         else if (data.equals("j3hueco")) {
-            System.out.println("Se debe renderizar hueco para el jugador 3");
             SharedData.getInstance().mensaje = data;
         }
         else if (data.equals("j4hueco")) {
-            System.out.println("Se debe renderizar hueco para el jugador 4");
+            SharedData.getInstance().mensaje = data;
+        }
+
+        //BRAIN PARA LOS TURBOS
+
+        else if (data.equals("j1trubo")) {
+            SharedData.getInstance().mensaje = data;
+        }
+
+        else if (data.equals("j2turbo")) {
+            SharedData.getInstance().mensaje = data;
+        }
+
+        else if (data.equals("j3turbo")) {
+            SharedData.getInstance().mensaje = data;
+     }
+        else if (data.equals("j4turbo")) {
+            SharedData.getInstance().mensaje = data;
+        }
+
+        //BRAIN PARA LAS VIDAS
+        else if (data.equals("j1vida")) {
+            SharedData.getInstance().mensaje = data;
+        }
+
+        else if (data.equals("j2vida")) {
+            SharedData.getInstance().mensaje = data;
+        }
+
+        else if (data.equals("j3vida")) {
+            SharedData.getInstance().mensaje = data;
+        }
+        else if (data.equals("j4vida")) {
             SharedData.getInstance().mensaje = data;
         }
 
 
-    }
+
+}
 }
 
