@@ -9,8 +9,8 @@ public class SharedData {
      */
     public String mensaje = "";
 
-
     private void Shared_Data (){
+
     }
 
     public static SharedData getInstance(){
