@@ -4,10 +4,9 @@ public class SharedData {
 
     static SharedData instance = null;
 
-
-    /* DECLARAR LAS VARIABLES A UTILIZAR QUE DEBEN ACTUALIZARSE
-    public int puntuacion1 = 0;
-    */
+    /**
+     * Variables que se deben actualizar conforme el recorrido del juego
+     */
     public String mensaje = "";
 
 

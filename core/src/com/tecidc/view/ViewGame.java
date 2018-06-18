@@ -7,19 +7,27 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.tecidc.Sockets.SocketCliente;
 import com.tecidc.controller.Controller;
+import com.tecidc.entities.GameObject;
 import com.tecidc.entities.Player;
 import com.tecidc.entities.Shell;
+
+import java.io.IOException;
+import java.net.Socket;
 
 
 public class ViewGame implements ApplicationListener {
 
     private OrthographicCamera camera;
-    private Player player;
+    public Player player;
     private Shell shell;
     private SpriteBatch batch;
     private View view;
+    private Vector2 position0;
     private Controller controller = new Controller();
+    private SocketCliente socket = new SocketCliente();
 
     @Override
     public void create() {
@@ -40,6 +48,11 @@ public class ViewGame implements ApplicationListener {
         player = new Player(1);
         player.position.set(431, 345);
         view.players.add(player);
+
+        socket.SocketCliente();
+
+
+
     }
 
     @Override
@@ -51,6 +64,12 @@ public class ViewGame implements ApplicationListener {
     public void render() {
         controller.movePlayer(player, view);
         controller.shot(view.shells, player);
+
+        try {
+            socket.send("{"+ "Player:" + player.getPlayer().toString() + "," + "Position:" + player.position.toString() + "," + "Lives:" + player.lives.toString() + "," + "Points:" + player.points.toString() + "}");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -8,8 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Player extends GameObject {
 
     private Float speed = 0.3f;
-    private Integer lives = 3;
-    private Integer points = 0;
+    public Integer lives = 3;
+    public Integer points = 0;
 
     public Player(Integer player) {
         //Heredados
