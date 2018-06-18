@@ -22,7 +22,7 @@ public class SocketCliente extends Thread {
      */
     public void SocketCliente() {
         try {
-            this.socket = new Socket("192.168.1.27", 15557);
+            this.socket = new Socket("192.168.43.185", 15557);
             System.out.println("conectado");
             bufferEntrada = new DataInputStream(socket.getInputStream());
             bufferSalida = new DataOutputStream(socket.getOutputStream());
@@ -43,7 +43,7 @@ public class SocketCliente extends Thread {
                 DatoSocket dato = new DatoSocket("");
                 dato.readObject(bufferEntrada);
                 Input_Brain(dato.toString());
-                System.out.println("Mensaje del Servidor: " + dato.toString());
+                //System.out.println("Mensaje del Servidor: " + dato.toString());
 
             } catch (IOException e) {
                 this.readyFlag = false;
@@ -70,12 +70,21 @@ public class SocketCliente extends Thread {
         String[] parts = data_server.split("-- ");
         String data = parts[1];
 
-        if (data.equals("Hola soy el server")) {
-            SharedData.getInstance().mensaje = data;
-            System.out.println("Shared data: " + SharedData.getInstance().mensaje);
+        if (data.equals("j1hueco")) {
+            System.out.println("Se debe renderizar hueco para el jugador 1");
         }
+        if (data.equals("j2hueco")) {
+            System.out.println("Se debe renderizar hueco para el jugador 2");
+        }
+
+        if (data.equals("j3hueco")) {
+            System.out.println("Se debe renderizar hueco para el jugador 3");
+        }
+        if (data.equals("j4hueco")) {
+            System.out.println("Se debe renderizar hueco para el jugador 4");
+        }
+
+
     }
-
-
 }
 
